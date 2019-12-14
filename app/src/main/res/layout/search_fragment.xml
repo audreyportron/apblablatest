@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="ap.blablacar.test.ui.search.SearchViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <EditText
+            android:id="@+id/search_from_title_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/value_16dp"
+            android:ems="10"
+            android:hint="@string/search_from"
+            android:inputType="text"
+            android:nextFocusDown="@id/search_to_title_edit"
+            android:text="@={model.from}"
+            app:layout_constraintBottom_toTopOf="@id/search_to_title_edit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+
+        <EditText
+            android:id="@+id/search_to_title_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/value_16dp"
+            android:ems="10"
+            android:hint="@string/search_to"
+            android:inputType="text"
+            android:imeOptions="actionDone"
+            android:text="@={model.to}"
+            app:layout_constraintBottom_toTopOf="@id/search_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_from_title_edit" />
+
+        <Button
+            android:id="@+id/search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/value_16dp"
+
+            android:onClick="@{model::find}"
+            android:text="@string/search_find"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_to_title_edit" />
+
+        <TextView
+            textRes="@{model.error}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/value_16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_button"
+            tools:text="@string/search_error_from" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

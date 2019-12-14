@@ -58,7 +58,7 @@ ext {
     truth_version = "0.41"
     runner_version = "1.1.0"
     espresso_version = "3.1.1"
-    core_testing_version = "2.0.0-beta01"
+    core_testing_version = "2.0.1"
     arch_core_testing_version = "1.1.1"
     retrofit_mock_version = "2.3.0"
 

@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/value_16dp"
 
-            android:onClick="@{model::find}"
+            android:onClick="@{()->model.find()}"
             android:text="@string/search_find"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -1,6 +1,5 @@
 package ap.blablacar.test.ui.search
 
-import android.view.View
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,7 +19,7 @@ class SearchViewModel : ViewModel() {
 
     var listener: Listener? = null
 
-    fun find(v: View) {
+    fun find() {
         from.value?.let { from ->
 
             to.value?.let { to ->

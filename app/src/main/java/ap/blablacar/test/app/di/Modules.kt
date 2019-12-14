@@ -7,13 +7,21 @@ import ap.blablacar.test.domain.PreferencesStorage
 import ap.blablacar.test.domain.oauth.OAuthRepository
 import ap.blablacar.test.domain.trip.TripRepository
 import ap.blablacar.test.ui.search.SearchViewModel
+import ap.blablacar.test.ui.trip.TripsViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
 
-    viewModel { SearchViewModel(get()) }
+    viewModel { SearchViewModel(get(), getProperty(SearchViewModel.CALLBACK_PROPERTY)) }
+    viewModel {
+        TripsViewModel(
+            get(),
+            getProperty(TripsViewModel.FROM_ID),
+            getProperty(TripsViewModel.TO_ID)
+        )
+    }
 
     single<PreferencesStorage> { AndroidSharedPreferencesStorage(androidContext()) }
 }

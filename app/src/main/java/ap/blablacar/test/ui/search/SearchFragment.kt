@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import ap.blablacar.test.R
 import ap.blablacar.test.databinding.SearchFragmentBinding
+import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.android.inject
 
 class SearchFragment : Fragment(), SearchViewModel.Listener {
@@ -21,12 +23,17 @@ class SearchFragment : Fragment(), SearchViewModel.Listener {
         savedInstanceState: Bundle?
     ): View? {
         bindings = DataBindingUtil.inflate(inflater, R.layout.search_fragment, container, false)
+        getKoin().setProperty(SearchViewModel.CALLBACK_PROPERTY, this)
         bindings.model = model
-        model.listener = this
+
         return bindings.root
     }
 
     override fun searchForNewTrip(to: String, from: String) {
+
+        findNavController().navigate(
+            R.id.trips_fragment
+        )
     }
 
 }

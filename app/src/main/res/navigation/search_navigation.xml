@@ -8,7 +8,17 @@
         android:id="@+id/search_fragment"
         android:name="ap.blablacar.test.ui.search.SearchFragment"
         app:defaultNavHost="true">
-
+        <action
+            android:id="@+id/search_to_fragment"
+            app:destination="@id/trips_fragment" />
 
     </fragment>
+
+    <fragment
+        android:id="@+id/trips_fragment"
+        android:name="ap.blablacar.test.ui.trip.TripsFragment">
+
+    </fragment>
+
+
 </navigation>

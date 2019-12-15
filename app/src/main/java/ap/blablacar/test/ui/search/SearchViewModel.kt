@@ -4,9 +4,8 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ap.blablacar.test.R
-import ap.blablacar.test.domain.trip.TripRepository
 
-class SearchViewModel(val repository: TripRepository, val callBack: Listener) : ViewModel() {
+class SearchViewModel(val callBack: Listener) : ViewModel() {
 
     val to = MutableLiveData<String>()
     val from = MutableLiveData<String>()
@@ -15,7 +14,7 @@ class SearchViewModel(val repository: TripRepository, val callBack: Listener) : 
 
 
     interface Listener {
-        fun searchForNewTrip(to: String, from: String)
+        fun searchForNewTrip(from: String, to: String)
     }
 
     fun find() {

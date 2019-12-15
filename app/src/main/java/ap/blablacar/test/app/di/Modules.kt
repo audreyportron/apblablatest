@@ -6,6 +6,7 @@ import ap.blablacar.test.data.trip.TripNetworkRepository
 import ap.blablacar.test.domain.PreferencesStorage
 import ap.blablacar.test.domain.oauth.OAuthRepository
 import ap.blablacar.test.domain.trip.TripRepository
+import ap.blablacar.test.domain.trip.TripService
 import ap.blablacar.test.ui.search.SearchViewModel
 import ap.blablacar.test.ui.trip.TripsViewModel
 import org.koin.android.ext.koin.androidContext
@@ -14,7 +15,7 @@ import org.koin.dsl.module
 
 val appModule = module {
 
-    viewModel { SearchViewModel(get(), getProperty(SearchViewModel.CALLBACK_PROPERTY)) }
+    viewModel { SearchViewModel(getProperty(SearchViewModel.CALLBACK_PROPERTY)) }
     viewModel {
         TripsViewModel(
             get(),
@@ -30,5 +31,10 @@ val dataModule = module {
 
     single<OAuthRepository> { OAuthNetworkRepository(get(), get()) }
     single<TripRepository> { TripNetworkRepository(get()) }
+}
+
+val domainModule = module {
+
+    single { TripService(get()) }
 }
 

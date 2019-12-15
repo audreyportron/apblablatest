@@ -17,8 +17,7 @@ class SearchViewModelTest {
     @Test
     fun should_go_launch_search_when_from_and_to_are_filled() {
         //Given
-        val searchViewModel = SearchViewModel()
-        searchViewModel.listener = mock()
+        val searchViewModel = SearchViewModel(mock())
         searchViewModel.from.value = "paris"
         searchViewModel.to.value = "angers"
 
@@ -26,7 +25,7 @@ class SearchViewModelTest {
         searchViewModel.find()
 
         //Then
-        verify(searchViewModel.listener)?.searchForNewTrip(any(), any())
+        verify(searchViewModel.callBack)?.searchForNewTrip(any(), any())
 
     }
 
@@ -34,7 +33,7 @@ class SearchViewModelTest {
     fun should_display_error_whent_from_is_not_filled() {
         //Given
 
-        val searchViewModel = SearchViewModel()
+        val searchViewModel = SearchViewModel(mock())
 
 
         //When
@@ -49,7 +48,7 @@ class SearchViewModelTest {
     fun should_display_error_whent_to_is_not_filled() {
         //Given
 
-        val searchViewModel = SearchViewModel()
+        val searchViewModel = SearchViewModel(mock())
         searchViewModel.from.value = "paris"
 
 

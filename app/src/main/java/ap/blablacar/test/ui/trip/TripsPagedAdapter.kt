@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ap.blablacar.test.R
 import ap.blablacar.test.domain.trip.Trip
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.trip_item.view.*
 
 class TripsPagedAdapter() :
@@ -38,9 +40,23 @@ class TripViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     fun bindTo(trip: Trip?) {
         itemView.apply {
             trip_user_name.text = trip?.user?.displayedName ?: ""
-//
-//            house_item_region.text = trip.departurePlace.cityName
-//            house_item_title.text = trip.arrivalPlace.cityName
+            trip_destination.text = context.getString(
+                R.string.trip_destination,
+                trip?.departurePlace?.cityName ?: "",
+                trip?.arrivalPlace?.cityName ?: ""
+            )
+            trip_price.text = trip?.priceWithCommission?.stringValue
+
+
+            Glide.with(trip_user_pic)
+                .load(trip?.user?.picture ?: "")
+                .apply(
+                    RequestOptions().placeholder(R.drawable.ic_no_image)
+                        .fallback(R.drawable.ic_no_image)
+                        .error(R.drawable.ic_no_image)
+                )
+                .into(trip_user_pic)
+
         }
 
     }

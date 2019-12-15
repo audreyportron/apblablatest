@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
 import ap.blablacar.test.domain.trip.Trip
-import ap.blablacar.test.domain.trip.TripRepository
+import ap.blablacar.test.domain.trip.TripService
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 
@@ -12,7 +12,7 @@ import io.reactivex.rxkotlin.plusAssign
 class TripDataSource(
     private val from: String,
     private val to: String,
-    private val repository: TripRepository,
+    private val service: TripService,
     private val compositeDisposable: CompositeDisposable
 ) : PageKeyedDataSource<Int, Trip>() {
 
@@ -21,13 +21,13 @@ class TripDataSource(
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, Trip>
     ) {
-        compositeDisposable += repository.getTrips(from, to, 1)
+        compositeDisposable += service.getTrips(from, to, 1)
             .subscribe({ trips -> callback.onResult(trips.trips, 0, 2) }, {})
     }
 
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Trip>) {
-        compositeDisposable += repository.getTrips(from, to, params.key)
+        compositeDisposable += service.getTrips(from, to, params.key)
             .subscribe({ trips -> callback.onResult(trips.trips, (params.key + 1)) }, {})
 
     }
@@ -40,7 +40,7 @@ class TripDataSource(
 class TripDataSourceFactory(
     private val from: String,
     private val to: String,
-    private val repository: TripRepository,
+    private val service: TripService,
     private val compositeDisposable: CompositeDisposable
 ) : DataSource.Factory<Int, Trip>() {
 
@@ -51,7 +51,7 @@ class TripDataSourceFactory(
         val tripDataSource = TripDataSource(
             from,
             to,
-            repository,
+            service,
             compositeDisposable
         )
         tripsDataSourceLiveData.postValue(tripDataSource)

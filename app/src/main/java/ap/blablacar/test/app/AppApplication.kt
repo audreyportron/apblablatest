@@ -3,6 +3,7 @@ package ap.blablacar.test.app
 import android.app.Application
 import ap.blablacar.test.app.di.appModule
 import ap.blablacar.test.app.di.dataModule
+import ap.blablacar.test.app.di.domainModule
 import ap.blablacar.test.app.di.networkModule
 import io.reactivex.android.schedulers.AndroidSchedulers
 import org.koin.android.ext.koin.androidContext
@@ -17,7 +18,7 @@ class AppApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@AppApplication)
-            modules(listOf(networkModule, dataModule, appModule))
+            modules(listOf(networkModule, dataModule, domainModule, appModule))
         }
     }
 }

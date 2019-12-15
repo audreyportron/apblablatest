@@ -29,17 +29,16 @@ class TripsFragment : Fragment() {
     ): View? {
         bindings = DataBindingUtil.inflate(inflater, R.layout.trips_fragment, container, false)
 
-        getKoin().setProperty(TripsViewModel.FROM_ID, "Paris")
-        getKoin().setProperty(TripsViewModel.TO_ID, "Angers")
+
+
+        getKoin().setProperty(TripsViewModel.FROM_ID, requireArguments().getString(FROM_EXTRA, ""))
+        getKoin().setProperty(TripsViewModel.TO_ID, requireArguments().getString(TO_EXTRA, ""))
+        bindings.model = tripsViewModel
         initAdapter()
+
         return bindings.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-    }
 
     private fun initAdapter() {
 
@@ -51,9 +50,13 @@ class TripsFragment : Fragment() {
         }
         tripsViewModel.tripsList.observe(this,
             Observer<PagedList<Trip>> {
+                tripsViewModel.noResult.set(it.isEmpty())
                 tripAdapter.submitList(it)
             })
+    }
 
-
+    companion object {
+        const val FROM_EXTRA = "FROM_EXTRA"
+        const val TO_EXTRA = "TO_EXTRA"
     }
 }

@@ -8,36 +8,38 @@ import okhttp3.Response
 class OAuthInterceptor(val oAuthRepository: OAuthRepository) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         var currentToken = oAuthRepository.getSavedToken()
-        var response = chain.proceed(chain.request())
 
-        if (currentToken == null) {
-            response = getNewToken(chain)
+        var response = if (currentToken == null) {
+            getNewToken(chain)
         } else {
-
-            val request = chain
-                .request()
-                .newBuilder()
-                .addHeader(
-                    "Authorization",
-                    //"${currentToken.tokenType} // This doesn't Work since tokenType doesn't have the first char in upper case ;)
-                    "Bearer ${currentToken?.token}"
-                )
-                .build()
-
-            response = chain.proceed(request)
+            doMainRequest(chain, currentToken)
 
         }
         when (response.code()) {
             401 -> {
                 oAuthRepository.deleteToken()
-                getNewToken(chain)
+                response = getNewToken(chain)
             }
         }
 
         return response
     }
 
-    fun getNewToken(chain: Interceptor.Chain): Response {
+    private fun doMainRequest(chain: Interceptor.Chain, token: OAuthResponseJson): Response {
+        val request = chain
+            .request()
+            .newBuilder()
+            .addHeader(
+                "Authorization",
+                //"${currentToken.tokenType} // This doesn't Work since tokenType doesn't have the first char in upper case ;)
+                "Bearer ${token.token}"
+            )
+            .build()
+
+        return chain.proceed(request)
+    }
+
+    private fun getNewToken(chain: Interceptor.Chain): Response {
 
         var response = chain.proceed(chain.request())
 
@@ -52,18 +54,7 @@ class OAuthInterceptor(val oAuthRepository: OAuthRepository) : Interceptor {
             val currentToken = newToken.body()
             currentToken?.let {
                 oAuthRepository.saveToken(it)
-
-                val request = chain
-                    .request()
-                    .newBuilder()
-                    .addHeader(
-                        "Authorization",
-                        //"${currentToken.tokenType} // This doesn't Work since tokenType doesn't have the first char in upper case ;)
-                        "Bearer ${currentToken.token}"
-                    )
-                    .build()
-
-                response = chain.proceed(request)
+                response = doMainRequest(chain, currentToken)
 
 
             }

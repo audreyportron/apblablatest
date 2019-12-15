@@ -5,4 +5,6 @@
     <string name="search_to">Where do you want to go ?</string>
     <string name="search_error_from">Please fill in the \"from\" field</string>
     <string name="search_error_to">Please fill in the \"to\" field</string>
+    <string name="trip_destination">from %s to %s</string>
+    <string name="trip_no_result">Sorry, we couldn\'t find result for you trip</string>
 </resources>

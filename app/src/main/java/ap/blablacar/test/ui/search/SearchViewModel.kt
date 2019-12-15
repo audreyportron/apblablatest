@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ap.blablacar.test.R
 
-class SearchViewModel : ViewModel() {
+class SearchViewModel(val callBack: Listener) : ViewModel() {
 
     val to = MutableLiveData<String>()
     val from = MutableLiveData<String>()
@@ -14,19 +14,21 @@ class SearchViewModel : ViewModel() {
 
 
     interface Listener {
-        fun searchForNewTrip(to: String, from: String)
+        fun searchForNewTrip(from: String, to: String)
     }
-
-    var listener: Listener? = null
 
     fun find() {
         from.value?.let { from ->
 
             to.value?.let { to ->
-                listener?.searchForNewTrip(from, to)
+                callBack.searchForNewTrip(from, to)
             } ?: error.set(R.string.search_error_to)
         } ?: error.set(R.string.search_error_from)
 
+    }
+
+    companion object {
+        const val CALLBACK_PROPERTY = "callbackProperty"
     }
 
 }

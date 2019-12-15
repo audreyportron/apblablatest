@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/value_4dp"
+    android:layout_marginBottom="@dimen/value_4dp"
+    android:layout_marginStart="@dimen/value_16dp"
+    android:layout_marginEnd="@dimen/value_16dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/trip_user_pic"
+            android:layout_width="@dimen/trip_img_size"
+            android:layout_height="@dimen/trip_img_size"
+            android:src="@drawable/ic_launcher_background"
+            android:layout_margin="@dimen/value_16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/trip_user_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/trip_user_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/value_16dp"
+            app:layout_constraintBottom_toTopOf="@id/trip_destination"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/trip_user_pic"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Audrey PORTRON" />
+
+
+        <TextView
+            android:id="@+id/trip_destination"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/value_16dp"
+            app:layout_constraintBottom_toTopOf="@id/trip_price"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/trip_user_pic"
+            app:layout_constraintTop_toBottomOf="@id/trip_user_name"
+            tools:text="From paris To angers" />
+
+        <TextView
+            android:id="@+id/trip_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/value_16dp"
+            android:textAlignment="textEnd"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/trip_user_pic"
+            app:layout_constraintTop_toBottomOf="@id/trip_destination"
+            tools:text="23,00€" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

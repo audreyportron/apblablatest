@@ -14,6 +14,11 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "API_URL", "\"https://edge.blablacar.com/\"")
+        buildConfigField("String", "OAUTH_ID", "\"android-technical-tests\"")
+        buildConfigField("String", "OAUTH_SECRET_ID", "\"Y1oAL3QdPfVhGOWj3UeDjo3q02Qwhvrj\"")
+        buildConfigField("String", "OAUTH_GRANT", "\"client_credentials\"")
     }
     buildTypes {
         release {
@@ -57,10 +62,17 @@ dependencies {
 
     implementation "com.google.android.material:material:$material_version"
 
+    //Paging
+    implementation "android.arch.paging:runtime:$paging_version"
+
     implementation "io.reactivex.rxjava2:rxkotlin:${rxkotlin_version}"
     implementation "io.reactivex.rxjava2:rxandroid:${rxandroid_version}"
 
     implementation "com.jakewharton.timber:timber:$timber_version"
+
+
+    implementation "com.github.bumptech.glide:glide:${glide_version}"
+    kapt "com.github.bumptech.glide:compiler:${glide_version}"
 
 
     implementation "org.koin:koin-android:$koin_version"

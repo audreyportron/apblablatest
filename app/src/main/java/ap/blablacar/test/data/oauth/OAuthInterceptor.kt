@@ -31,7 +31,7 @@ class OAuthInterceptor(val oAuthRepository: OAuthRepository) : Interceptor {
             .newBuilder()
             .addHeader(
                 "Authorization",
-                //"${currentToken.tokenType} // This doesn't Work since tokenType doesn't have the first char in upper case ;)
+                //"${currentToken.tokenType} // This doesn't Work since  the first char of the tokenType isn't in upper case
                 "Bearer ${token.token}"
             )
             .build()
